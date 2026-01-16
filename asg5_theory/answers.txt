@@ -1,0 +1,107 @@
+/*
+Assignment 5: Conceptual (Theoretical Questions)
+Answer the following questions in your own words:
+1.​ Why do we use inheritance?
+2.​ Why can’t we create objects from modules?
+3.​ What is the difference between include and extend?
+4.​ When should we use a module instead of a class?
+*/
+
+
+
+1. Why do we use inheritance?
+
+Inheritance is used to reuse common functionality and reduce duplication in code. 
+When multiple classes share similar behavior, a parent class can define that behavior once, and child classes can inherit it. 
+This also makes the code easier to maintain because changes in shared logic need to be done in only one place.
+
+Example, 
+if there is an Employee class with common attributes like name and salary, a Developer or Manager class can inherit from it instead of rewriting the same logic.
+
+class Employee
+  def work
+    puts "Employee is working"
+  end
+end
+
+class Developer < Employee
+end
+
+dev = Developer.new
+dev.work
+
+In real life, 
+this is similar to how a “Vehicle” can be a general category, and “Car” or “Bike” inherit common properties like speed and fuel type while still having their own specific features.
+
+
+
+2. Why can’t we create objects from modules?
+
+Modules are designed to share behavior, not to represent objects. 
+They do not model real-world entities and are mainly used to group related methods that can be reused across multiple classes. 
+Since modules are not meant to hold independent state like objects do, Ruby does not allow creating instances of modules.
+
+Example, 
+a module can be used to provide logging functionality to many classes.
+
+module LoggerModule
+  def log(message)
+    puts "[LOG] #{message}"
+  end
+end
+
+In real life, 
+this is similar to a rulebook or instruction manual. You don’t create an object from a rulebook, but many people or systems can follow the same rules.
+
+
+
+3. What is the difference between include and extend?
+
+The include keyword is used when you want the methods of a module to become instance methods of a class. 
+This means every object of that class can use those methods. 
+The extend keyword is used when you want the module’s methods to be available at the class level, not on individual objects.
+
+Example,
+using include
+
+class User
+  include LoggerModule
+end
+
+user = User.new
+user.log("User created")
+
+Example,
+using extend
+
+class User
+  extend LoggerModule
+end
+
+User.log("Class-level log")
+
+In real life, 
+include is like giving every employee a handbook to use personally, while 
+extend is like giving management a shared rule that applies to the whole organization.
+
+
+
+4. When should we use a module instead of a class?
+
+A module should be used when the goal is to share common behavior across different classes without creating an inheritance relationship. 
+Modules are useful when multiple unrelated classes need the same functionality, such as logging, authentication helpers, or utility methods.
+
+Example, 
+both an Employee class and an Admin class might need logging, but they are not logically related through inheritance.
+
+class Employee
+  include LoggerModule
+end
+
+class Admin
+  include LoggerModule
+end
+
+In real life, 
+this is similar to using the same tool, such as email or a calculator, in different professions. 
+The tool is shared, but it does not define what the person is.
